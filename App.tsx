@@ -22,7 +22,9 @@ const App: React.FC = () => {
       const response = await fetch(`${GAS_WEBAPP_URL}?action=fetchApps`);
       const result = await response.json();
       if (result.success) {
-        setApps(result.data);
+        // "쿠효정" 제작자의 게시글을 제외하고 필터링하여 상태에 저장
+        const filteredApps = (result.data as WebApp[]).filter(app => app.author !== "쿠효정");
+        setApps(filteredApps);
       } else {
         setError('앱 목록을 불러오는데 실패했습니다.');
       }
